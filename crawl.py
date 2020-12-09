@@ -23,9 +23,9 @@ def selector(url, select, length):
     return select_ls
 
 
-def crawl(url, title, time, length=20):
+def crawl(url, title, time_, length=20):
     title_ls = selector(url, title, length)
-    time_ls = selector(url, time, length)
+    time_ls = selector(url, time_, length)
     # address_talbe = selector(url, address)
     table = pd.DataFrame()
     table['Title'] = title_ls
