@@ -66,8 +66,9 @@ time_ = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nt
 
 
 sched = BackgroundScheduler()
-sched.scheduled_job(newsletter, 'interval', minute='10', id='test_1')
+sched.add_job()
+sched.add_job(newsletter, 'interval', seconds=60)
 sched.start()
 while True:
     print("Running main process...............")
-    time.sleep(10)
+    time.sleep(60)
