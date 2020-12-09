@@ -51,20 +51,23 @@ def mail(subject, text, f_mail='raphaelseo22@gmail.com', t_mail='seodh02@gmail.c
     s.quit()
 
 
-def main():
+def newsletter():
     today = datetime.datetime.now()
     today = today.strftime('%Y-%m-%d')
-    table = crawl(url, title, time)
+    table = crawl(url, title, time_)
     mail(f'{today}', table)
     print('메일이 성공적으로 보내졌습니다.')
 
 
 url = 'https://www.fmkorea.com/index.php?mid=football_news&sort_index=pop&order_type=desc'
 title = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > h3 > a'
-time = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nth-child(5) > span.regdate'
+time_ = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nth-child(5) > span.regdate'
 # address = '#bd_340354_0 > div > table > tbody > tr > td.title.hotdeal_var8 > a:nth-child(1).hre'
 
 
 sched = BackgroundScheduler()
+sched.scheduled_job(newsletter, 'interval', minute='10', id='test_1')
 sched.start()
-@sched.scheduled_job('cron', hour='9,15', minute='15,45', id='test_1')
+while True:
+    print("Running main process...............")
+    time.sleep(10)
