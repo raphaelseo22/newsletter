@@ -12,20 +12,20 @@ def get_dom(url, encode='utf-8'):
     return soup
 
 
-def selector(url, select):
+def selector(url, select, length):
     soup = get_dom(url)
     select_ls = []
-    for ti in soup.select(select):
-        select_ls.append(ti.text.strip())
-    if len(select_ls) > 20:
-        while len(select_ls) != 20:
+    for tx in soup.select(select):
+        select_ls.append(tx.text.strip())
+    if len(select_ls) > length:
+        while len(select_ls) != length:
             select_ls = select_ls[1:]
     return select_ls
 
 
-def crawl(url, title, time):
-    title_ls = selector(url, title)
-    time_ls = selector(url, time)
+def crawl(url, title, time, length=20):
+    title_ls = selector(url, title, length)
+    time_ls = selector(url, time, length)
     # address_talbe = selector(url, address)
     table = pd.DataFrame()
     table['Title'] = title_ls

@@ -24,9 +24,9 @@ def main():
     print('메일이 성공적으로 보내졌습니다.')
 
 
-url = 'https://www.fmkorea.com/football_news'
-title = '#bd_340354_0 > div > table > tbody > tr > td.title.hotdeal_var8 > a:nth-child(1)'
-time = '#bd_340354_0 > div > table > tbody > tr > td.time'
+url = 'https://www.fmkorea.com/index.php?mid=football_news&sort_index=pop&order_type=desc'
+title = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > h3 > a'
+time = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nth-child(5) > span.regdate'
 # address = '#bd_340354_0 > div > table > tbody > tr > td.title.hotdeal_var8 > a:nth-child(1).hre'
 
 
