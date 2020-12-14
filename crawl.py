@@ -35,8 +35,24 @@ def fmk_crawl(length=20):
     time_ls = selector(url, time_, length)
     address_ls = selector(url, title, length, address=True)
     table = pd.DataFrame()
+    table['Category'] = "News"
     table['Title'] = title_ls
     table['Time'] = time_ls
     table['URL'] = address_ls
     return table
 
+
+
+def fashion_crawl(length=20):
+    url = 'https://www.fmkorea.com/index.php?mid=fashion&sort_index=pop&order_type=desc'
+    title = '#bd_4477817_0 > div > div.fm_best_widget._bd_pc > ul > li > div > h3 > a'
+    time_ = '#bd_4477817_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nth-child(5) > span.regdate'
+    title_ls = selector(url, title, length)
+    time_ls = selector(url, time_, length)
+    address_ls = selector(url, title, length, address=True)
+    table = pd.DataFrame()
+    table['Category'] = "Fashion"
+    table['Title'] = title_ls
+    table['Time'] = time_ls
+    table['URL'] = address_ls
+    return table
