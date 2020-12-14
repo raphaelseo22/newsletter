@@ -31,10 +31,9 @@ def fmk_crawl(length=20):
     url = 'https://www.fmkorea.com/index.php?mid=football_news&sort_index=pop&order_type=desc'
     title = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > h3 > a'
     time_ = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nth-child(5) > span.regdate'
-    address = "#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > h3 > a"
     title_ls = selector(url, title, length)
     time_ls = selector(url, time_, length)
-    address_ls = selector(url, address, length, address=True)
+    address_ls = selector(url, title, length, address=True)
     table = pd.DataFrame()
     table['Title'] = title_ls
     table['Time'] = time_ls

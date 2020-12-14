@@ -7,7 +7,7 @@ import mail
 
 def newsletter():
     today = datetime.datetime.now()
-    today = today.strftime('%Y-%m-%d')
+    today = today.strftime('%Y-%m-%d %H:%M:%S')
     table = crawl.fmk_crawl()
     mail.mail(f'{today}', table)
     print('메일이 성공적으로 보내졌습니다.')
@@ -17,7 +17,11 @@ sched = BackgroundScheduler()
 
 
 sched.start()
-sched.add_job(newsletter, 'cron', hour="12,18")
+sched.add_job(newsletter, 'cron', hour="6,18")
 while True:
     # print("Running main process...............")
     time.sleep(1)
+
+
+# if __name__ == '__main__':
+#     newsletter()
