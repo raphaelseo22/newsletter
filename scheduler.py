@@ -19,7 +19,7 @@ sched = BackgroundScheduler()
 sched.start()
 sched.add_job(newsletter, 'cron', hour="6,18")
 while True:
-    # print("Running main process...............")
+    print("Running main process...............")
     time.sleep(1)
 
 
