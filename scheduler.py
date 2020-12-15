@@ -16,15 +16,15 @@ def newsletter():
     print('메일이 성공적으로 보내졌습니다.')
 
 
-# sched = BackgroundScheduler()
-#
-#
-# sched.start()
-# sched.add_job(newsletter, 'cron', hour="6,18")
-# while True:
-#     # print("Running main process...............")
-#     time.sleep(1)
+sched = BackgroundScheduler()
 
 
-if __name__ == '__main__':
-    newsletter()
+sched.start()
+sched.add_job(newsletter, 'cron', hour="6,18")
+while True:
+    # print("Running main process...............")
+    time.sleep(1)
+
+
+# if __name__ == '__main__':
+#     newsletter()
