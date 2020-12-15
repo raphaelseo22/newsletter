@@ -35,10 +35,10 @@ def fmk_crawl(length=20):
     time_ls = selector(url, time_, length)
     address_ls = selector(url, title, length, address=True)
     table = pd.DataFrame()
-    table.insert(0, 'Category', 'News')
     table['Title'] = title_ls
     table['Time'] = time_ls
     table['URL'] = address_ls
+    table.insert(0, 'Category', 'News')
     return table
 
 
@@ -51,8 +51,8 @@ def fashion_crawl(length=20):
     time_ls = selector(url, time_, length)
     address_ls = selector(url, title, length, address=True)
     table = pd.DataFrame()
-    table.insert(0, 'Category', 'Fashion')
     table['Title'] = title_ls
     table['Time'] = time_ls
     table['URL'] = address_ls
+    table.insert(0, 'Category', 'Fashion')
     return table
