@@ -4,28 +4,29 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 
-def get_dom(url, encode='utf-8'):
+def get_dom(url, encode):
     req = requests.get(url)
-    req.encoding = encode
+    if encode != None:
+        req.encoding = encode
     soup = bs(req.text, 'html.parser')
     return soup
 
 
-def selector(url, select, length, address=False, reply=False):
-    soup = get_dom(url)
+def selector(url, select, length=20, address=False, sub=None, site=None, encode=None):
+    soup = get_dom(url, encode)
     select_ls = []
     if address == False:
         for tx in soup.select(select):
-            if reply == False:
+            if sub != True:
                 t = tx.text.strip()
-                t = re.sub("\[[0-9]{1,4}\]","",t)
+                t = re.sub(f"{sub}","",t)
                 select_ls.append(t)
             else:
                 t = tx.text.strip()
                 select_ls.append(t)
     else:
         for tx in soup.select(select):
-            select_ls.append(f"https://www.fmkorea.com/{tx['href']}")
+            select_ls.append(f"{site}/{tx['href']}")
     if len(select_ls) > length:
         while len(select_ls) != length:
             select_ls = select_ls[1:]
@@ -33,32 +34,18 @@ def selector(url, select, length, address=False, reply=False):
 
 
 
-def fmk_crawl(length=20):
-    url = 'https://www.fmkorea.com/index.php?mid=football_news&sort_index=pop&order_type=desc'
-    title = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > h3 > a'
-    time_ = '#bd_340354_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nth-child(5) > span.regdate'
-    title_ls = selector(url, title, length)
-    time_ls = selector(url, time_, length)
-    address_ls = selector(url, title, length, address=True)
+def crawl(url, title=None, time_=None, address="title",site=None, category=None, encode=None, sub=None):
+    if title != None:
+        title_ls = selector(url, title, encode=encode, sub=sub)
+    if time_ != None:
+        time_ls = selector(url, time_, encode=encode)
+    if address != None:
+        if address == "title":
+            address = title
+        address_ls = selector(url, address, address=address, site=site, encode=encode)
     table = pd.DataFrame()
     table['Title'] = title_ls
     table['Time'] = time_ls
     table['URL'] = address_ls
-    table.insert(0, 'Category', 'News')
-    return table
-
-
-
-def fashion_crawl(length=20):
-    url = 'https://www.fmkorea.com/index.php?mid=fashion&sort_index=pop&order_type=desc'
-    title = '#bd_4477817_0 > div > div.fm_best_widget._bd_pc > ul > li > div > h3 > a'
-    time_ = '#bd_4477817_0 > div > div.fm_best_widget._bd_pc > ul > li > div > div:nth-child(5) > span.regdate'
-    title_ls = selector(url, title, length)
-    time_ls = selector(url, time_, length)
-    address_ls = selector(url, title, length, address=True)
-    table = pd.DataFrame()
-    table['Title'] = title_ls
-    table['Time'] = time_ls
-    table['URL'] = address_ls
-    table.insert(0, 'Category', 'Fashion')
+    table.insert(0, 'Category', category)
     return table
