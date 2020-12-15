@@ -11,12 +11,18 @@ def get_dom(url, encode='utf-8'):
     return soup
 
 
-def selector(url, select, length, address=False):
+def selector(url, select, length, address=False, reply=False):
     soup = get_dom(url)
     select_ls = []
     if address == False:
         for tx in soup.select(select):
-            select_ls.append(tx.text.strip())
+            if reply == False:
+                t = tx.text.strip()
+                t = re.sub("\[[0-9]{1,4}\]","",t)
+                select_ls.append(t)
+            else:
+                t = tx.text.strip()
+                select_ls.append(t)
     else:
         for tx in soup.select(select):
             select_ls.append(f"https://www.fmkorea.com/{tx['href']}")
