@@ -12,12 +12,12 @@ def get_dom(url, encode):
     return soup
 
 
-def selector(url, select, length=20, address=False, sub=None, site=None, encode=None):
+def selector(url, select, length=20, address=None, sub=None, site=None, encode=None):
     soup = get_dom(url, encode)
     select_ls = []
-    if address == False:
+    if address == None:
         for tx in soup.select(select):
-            if sub != True:
+            if sub != None:
                 t = tx.text.strip()
                 t = re.sub(f"{sub}","",t)
                 select_ls.append(t)
