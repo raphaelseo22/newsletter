@@ -24,23 +24,29 @@ naver_finance_news = crawl.crawl(url=cfg["naver_finance_news"]["url"],
                                  address=cfg["naver_finance_news"]["address"],
                                  category="Finance", sub="\n[\s\S]*")
 
-def newsletter():
+table_ls = [fmk_news, fmk_fashion, naver_finance_news]
+
+
+
+
+def newsletter(table_ls):
     today = datetime.datetime.now()
     today = today.strftime('%Y-%m-%d %H:%M:%S')
-    table = pd.concat([fmk_news, fmk_fashion, naver_finance_news], ignore_index=True)
+    table = pd.concat(table_ls, ignore_index=True)
     mail.mail(f'{today}', table)
     print('메일이 성공적으로 보내졌습니다.')
 
-
+#
 sched = BackgroundScheduler()
 
 
 sched.start()
-sched.add_job(newsletter, 'cron', hour="7,17")
+sched.add_job(newsletter(table_ls), 'cron', hour="7,17")
+# sched.add_job(newsletter(table_ls), "interval", hours=14, minutes=20)
 while True:
     # print("Running main process...............")
     time.sleep(1)
 
 
 # if __name__ == '__main__':
-#     newsletter()
+#     newsletter(table_ls)
