@@ -50,6 +50,3 @@ while True:
 
 # if __name__ == '__main__':
 #     newsletter(table_ls)
-
-
-## test
